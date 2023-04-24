@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://c4kk51rcpucb1"]
 
 [ext_resource type="PackedScene" uid="uid://cglrc5tqvcgh8" path="res://Planes/Sparrow/Sparrow.glb" id="1_l2fhp"]
 
