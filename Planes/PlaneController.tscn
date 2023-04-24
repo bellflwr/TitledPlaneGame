@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://cglrc5tqvcgh8" path="res://Planes/Sparrow/Sparrow.glb" id="1_l2fhp"]
+
+[node name="PlaneController" type="Node3D"]
+
+[node name="Sparrow" parent="." instance=ExtResource("1_l2fhp")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.09688)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c7ir8n142in3i"
+path="res://.godot/imported/RoyalRange_Lv1.obj-83f3cc934a71b797ff7c03c532f4a005.mesh"
+
+[deps]
+
+files=["res://.godot/imported/RoyalRange_Lv1.obj-83f3cc934a71b797ff7c03c532f4a005.mesh"]
+
+source_file="res://Levels/Royal Range/RoyalRange_Lv1.obj"
+dest_files=["res://.godot/imported/RoyalRange_Lv1.obj-83f3cc934a71b797ff7c03c532f4a005.mesh", "res://.godot/imported/RoyalRange_Lv1.obj-83f3cc934a71b797ff7c03c532f4a005.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

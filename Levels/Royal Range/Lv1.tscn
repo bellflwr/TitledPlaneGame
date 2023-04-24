@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://vu5470ky5kq"]
+
+[ext_resource type="ArrayMesh" uid="uid://c7ir8n142in3i" path="res://Levels/Royal Range/RoyalRange_Lv1.obj" id="1_px380"]
+[ext_resource type="PackedScene" path="res://Planes/PlaneController.tscn" id="2_qn0l2"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="RoyalRangeLv1" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_px380")
+
+[node name="PlaneController" parent="." instance=ExtResource("2_qn0l2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10728, 0, -0.457243)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.901016, 0.34259, -0.266085, 7.2607e-09, 0.613403, 0.78977, 0.433785, -0.711596, 0.552687, 0, 0, 0)
