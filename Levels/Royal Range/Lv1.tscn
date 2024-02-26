@@ -1,15 +1,91 @@
-[gd_scene load_steps=3 format=3 uid="uid://vu5470ky5kq"]
+[gd_scene load_steps=11 format=3 uid="uid://vu5470ky5kq"]
 
 [ext_resource type="ArrayMesh" uid="uid://c7ir8n142in3i" path="res://Levels/Royal Range/RoyalRange_Lv1.obj" id="1_px380"]
-[ext_resource type="PackedScene" path="res://Planes/PlaneController.tscn" id="2_qn0l2"]
+[ext_resource type="Shader" path="res://Levels/Royal Range/Mountain.gdshader" id="2_awt2t"]
+[ext_resource type="PackedScene" uid="uid://c4kk51rcpucb1" path="res://Planes/PlaneController.tscn" id="2_qn0l2"]
+[ext_resource type="Shader" path="res://Shaders/Sky.gdshader" id="3_2cxgg"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vrp8j"]
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_acspn"]
+width = 1000
+height = 1000
+seamless = true
+noise = SubResource("FastNoiseLite_vrp8j")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sawvo"]
+render_priority = 0
+shader = ExtResource("2_awt2t")
+shader_parameter/grass = Color(0.313726, 0.607843, 0, 1)
+shader_parameter/rock = Color(0.407843, 0.407843, 0.407843, 1)
+shader_parameter/snow = Color(0.792157, 0.792157, 0.792157, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise = SubResource("NoiseTexture2D_acspn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_85s72"]
+shader = ExtResource("3_2cxgg")
+shader_parameter/day_top_color = Color(0.1, 0.6, 1, 1)
+shader_parameter/day_bottom_color = Color(0.4, 0.8, 1, 1)
+shader_parameter/sunset_top_color = Color(0.7, 0.75, 1, 1)
+shader_parameter/sunset_bottom_color = Color(1, 0.5, 0.7, 1)
+shader_parameter/night_top_color = Color(0.02, 0, 0.04, 1)
+shader_parameter/night_bottom_color = Color(0.1, 0, 0.2, 1)
+shader_parameter/horizon_color = Color(0, 0.7, 0.8, 1)
+shader_parameter/horizon_blur = 0.05
+shader_parameter/sun_color = Color(10, 8, 1, 1)
+shader_parameter/sun_sunset_color = Color(10, 0, 0, 1)
+shader_parameter/sun_size = 0.2
+shader_parameter/sun_blur = 10.0
+shader_parameter/moon_color = Color(1, 0.95, 0.7, 1)
+shader_parameter/moon_size = 0.06
+shader_parameter/moon_blur = 0.1
+shader_parameter/clouds_edge_color = Color(0.8, 0.8, 0.98, 1)
+shader_parameter/clouds_top_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_middle_color = Color(0.92, 0.92, 0.98, 1)
+shader_parameter/clouds_bottom_color = Color(0.83, 0.83, 0.94, 1)
+shader_parameter/clouds_speed = 2.0
+shader_parameter/clouds_direction = 0.2
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_cutoff = 0.3
+shader_parameter/clouds_fuzziness = 0.5
+shader_parameter/clouds_weight = 0.0
+shader_parameter/clouds_blur = 0.25
+shader_parameter/stars_speed = 1.0
+shader_parameter/overwritten_time = 0.0
+
+[sub_resource type="Sky" id="Sky_yc6bh"]
+sky_material = SubResource("ShaderMaterial_85s72")
+
+[sub_resource type="Environment" id="Environment_0a576"]
+background_mode = 2
+sky = SubResource("Sky_yc6bh")
+fog_enabled = true
+fog_light_color = Color(0.74902, 0.772549, 0.811765, 1)
+fog_density = 0.0
+fog_sky_affect = 0.0
+fog_height = 100.0
+fog_height_density = 0.001
 
 [node name="Node3D" type="Node3D"]
 
 [node name="RoyalRangeLv1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1348.18, 0, 0, 0, 1348.18, 0, 0, 0, 1348.18, 0, -74.113, 0)
 mesh = ExtResource("1_px380")
+surface_material_override/0 = SubResource("ShaderMaterial_sawvo")
 
 [node name="PlaneController" parent="." instance=ExtResource("2_qn0l2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10728, 0, -0.457243)
+transform = Transform3D(0.415891, 0, 0, 0, 0.415891, 0, 0, 0, 0.415891, -0.10728, 462.101, -0.457243)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.901016, 0.34259, -0.266085, 7.2607e-09, 0.613403, 0.78977, 0.433785, -0.711596, 0.552687, 0, 0, 0)
+transform = Transform3D(-0.284139, -0.841495, 0.459512, 0.946664, -0.170268, 0.273562, -0.151961, 0.512733, 0.844993, 0, 73, 18)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0a576")

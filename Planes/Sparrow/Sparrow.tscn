@@ -1,6 +1,125 @@
-[gd_scene load_steps=11 format=3 uid="uid://2jqaa1w3if5j"]
+[gd_scene load_steps=17 format=3 uid="uid://2jqaa1w3if5j"]
 
 [ext_resource type="PackedScene" uid="uid://cglrc5tqvcgh8" path="res://Planes/Sparrow/Sparrow.glb" id="1_ttpum"]
+[ext_resource type="Material" uid="uid://n77iytv5rkgm" path="res://Planes/Sparrow/Chassis.tres" id="2_v7hy4"]
+[ext_resource type="Material" uid="uid://0kmqyyiktjct" path="res://Planes/Sparrow/Propeller.tres" id="3_ifpxb"]
+
+[sub_resource type="GDScript" id="GDScript_3pixp"]
+script/source = "extends Node3D
+
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$PropellerAnimator.play(\"Propeller\", -1, 5.0)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):	
+	if Input.is_action_just_pressed(\"pitch_up\"):
+		$ElevatorAnimator.play(\"PitchUp\")
+	if Input.is_action_just_pressed(\"pitch_down\"):
+		$ElevatorAnimator.play(\"PitchDown\")
+	if Input.is_action_just_released(\"pitch_up\") or Input.is_action_just_released(\"pitch_down\"):
+		$ElevatorAnimator.play(\"PitchReset\")
+		
+	if Input.is_action_just_pressed(\"roll_left\"):
+		$AileronAnimator.play(\"RollLeft\")
+	if Input.is_action_just_pressed(\"roll_right\"):
+		$AileronAnimator.play(\"RollRight\")
+	if Input.is_action_just_released(\"roll_left\") or Input.is_action_just_released(\"roll_right\"):
+		$AileronAnimator.play(\"RollReset\")
+		
+	if Input.is_action_just_pressed(\"yaw_left\"):
+		$RudderAnimator.play(\"YawLeft\")
+	if Input.is_action_just_pressed(\"yaw_right\"):
+		$RudderAnimator.play(\"YawRight\")
+	if Input.is_action_just_released(\"yaw_left\") or Input.is_action_just_released(\"yaw_right\"):
+		$RudderAnimator.play(\"YawReset\")
+"
+
+[sub_resource type="Animation" id="Animation_3yngf"]
+resource_name = "PitchDown"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Left Elevator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0.349066)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right Elevator:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0.349066)]
+}
+
+[sub_resource type="Animation" id="Animation_nke0e"]
+resource_name = "PitchReset"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Left Elevator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right Elevator:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lrprt"]
+resource_name = "PitchUp"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Left Elevator:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, -0.349066)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right Elevator:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, -0.349066)]
+}
 
 [sub_resource type="Animation" id="Animation_a0f8w"]
 resource_name = "Propeller"
@@ -94,62 +213,6 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_lrprt"]
-resource_name = "PitchUp"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Left Elevator:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.349066)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Right Elevator:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.349066)]
-}
-
-[sub_resource type="Animation" id="Animation_3yngf"]
-resource_name = "PitchDown"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Left Elevator:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.349066)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Right Elevator:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.349066)]
-}
-
 [sub_resource type="Animation" id="Animation_ca2yl"]
 resource_name = "RollLeft"
 length = 0.5
@@ -160,10 +223,10 @@ tracks/0/path = NodePath("Left Aileron:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.349066)]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, -0.349066)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -172,10 +235,38 @@ tracks/1/path = NodePath("Right Aileron:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.349066)]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0.349066)]
+}
+
+[sub_resource type="Animation" id="Animation_31qfk"]
+resource_name = "RollReset"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Left Aileron:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Right Aileron:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_25q6p"]
@@ -188,10 +279,10 @@ tracks/0/path = NodePath("Left Aileron:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.349066)]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0.349066)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -200,10 +291,10 @@ tracks/1/path = NodePath("Right Aileron:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.349066)]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, -0.349066)]
 }
 
 [sub_resource type="Animation" id="Animation_ijs8a"]
@@ -216,10 +307,26 @@ tracks/0/path = NodePath("Rudder:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.523599, 0)]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, -0.523599, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_n1aw7"]
+resource_name = "YawReset"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rudder:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_dmvb1"]
@@ -232,27 +339,83 @@ tracks/0/path = NodePath("Rudder:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.523599, 0)]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0.523599, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m54ft"]
 _data = {
 "PitchDown": SubResource("Animation_3yngf"),
+"PitchReset": SubResource("Animation_nke0e"),
 "PitchUp": SubResource("Animation_lrprt"),
 "Propeller": SubResource("Animation_a0f8w"),
 "RESET": SubResource("Animation_36jf8"),
 "RollLeft": SubResource("Animation_ca2yl"),
+"RollReset": SubResource("Animation_31qfk"),
 "RollRight": SubResource("Animation_25q6p"),
 "YawLeft": SubResource("Animation_ijs8a"),
+"YawReset": SubResource("Animation_n1aw7"),
 "YawRight": SubResource("Animation_dmvb1")
 }
 
 [node name="Sparrow" instance=ExtResource("1_ttpum")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+script = SubResource("GDScript_3pixp")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+[node name="Fuselage" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="Blade 1" parent="Propeller" index="0"]
+surface_material_override/0 = ExtResource("3_ifpxb")
+
+[node name="Blade 2" parent="Propeller" index="1"]
+surface_material_override/0 = ExtResource("3_ifpxb")
+
+[node name="Spinner" parent="Propeller" index="2"]
+surface_material_override/0 = ExtResource("3_ifpxb")
+
+[node name="Left Aileron" parent="." index="2"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="Right Aileron" parent="." index="3"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="Wings" parent="." index="4"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="Left Elevator" parent="." index="5"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="Right Elevator" parent="." index="6"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="HStabilizer" parent="." index="7"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="VStabilizer" parent="." index="8"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="Rudder" parent="." index="9"]
+surface_material_override/0 = ExtResource("2_v7hy4")
+
+[node name="AileronAnimator" type="AnimationPlayer" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_m54ft")
+}
+
+[node name="ElevatorAnimator" type="AnimationPlayer" parent="." index="11"]
+libraries = {
+"": SubResource("AnimationLibrary_m54ft")
+}
+
+[node name="RudderAnimator" type="AnimationPlayer" parent="." index="12"]
+libraries = {
+"": SubResource("AnimationLibrary_m54ft")
+}
+
+[node name="PropellerAnimator" type="AnimationPlayer" parent="." index="13"]
 libraries = {
 "": SubResource("AnimationLibrary_m54ft")
 }
